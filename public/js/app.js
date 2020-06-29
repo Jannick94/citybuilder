@@ -108,16 +108,29 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'map-view',
   data: function data() {
     return {
       canvas: null,
       context: null,
-      tilemap: [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [1, 3, 3, 3, 1, 1, 1, 3, 3, 3, 1, 1], [5, 4, 4, 4, 5, 5], [1, 3, 3, 3, 1, 1], [1, 1, 1, 1, 1, 1]],
+      tilemap: [[1, 1, 1, 1, 1], [1, 3, 3, 3, 1], [5, 4, 4, 4, 5], [1, 3, 3, 3, 1], [1, 1, 1, 1, 1]],
       secondsPassed: null,
       oldTimeStamp: null,
-      fps: null
+      fps: null,
+      coordinates: {
+        x: 0,
+        y: 0
+      },
+      isDragging: false
     };
   },
   methods: {
@@ -139,6 +152,7 @@ __webpack_require__.r(__webpack_exports__);
       this.canvas.height = window.innerHeight;
       var amountOfColumns = this.tilemap[0].length;
       var amountOfRows = this.tilemap.length;
+      this.context.translate(this.coordinates.x, this.coordinates.y);
 
       for (var x = 0; x < amountOfRows; x++) {
         for (var y = 0; y < amountOfColumns; y++) {
@@ -158,6 +172,23 @@ __webpack_require__.r(__webpack_exports__);
       var ox = this.canvas.width / 2 - spriteWidth / 2;
       var oy = spriteHeight;
       this.context.drawImage(tile, ox + (y - x) * spriteWidth / 2, oy + (x + y) * gridHeight / 2 - (spriteHeight - gridHeight), spriteWidth, spriteHeight);
+    },
+    startDragging: function startDragging() {
+      this.isDragging = true;
+    },
+    stopDragging: function stopDragging() {
+      this.isDragging = false;
+    },
+    dragViewport: function dragViewport(event) {
+      if (!this.isDragging) {
+        return;
+      } // @todo: calculate movementX/Y because it lacks support in IE
+
+
+      this.coordinates = {
+        x: this.coordinates.x + event.movementX,
+        y: this.coordinates.y + event.movementY
+      };
     }
   },
   mounted: function mounted() {
@@ -658,7 +689,11 @@ var render = function() {
       staticStyle: { overflow: "auto", width: "100%", height: "100%" }
     },
     [
-      _c("span", { key: _vm.fps }, [_vm._v(_vm._s(_vm.fps) + " fps")]),
+      _c("p", { key: _vm.fps }, [_vm._v(_vm._s(_vm.fps) + " fps")]),
+      _vm._v(" "),
+      _c("p", [_vm._v("x: " + _vm._s(_vm.coordinates.x))]),
+      _vm._v(" "),
+      _c("p", [_vm._v("y: " + _vm._s(_vm.coordinates.y))]),
       _vm._v(" "),
       _c("img", { ref: "1", attrs: { src: "/img/grass.png", hidden: "" } }),
       _vm._v(" "),
@@ -673,7 +708,23 @@ var render = function() {
       _vm._v(" "),
       _c("img", { ref: "5", attrs: { src: "/img/roadNorth.png", hidden: "" } }),
       _vm._v(" "),
-      _c("canvas", { ref: "canvas" })
+      _c("canvas", {
+        ref: "canvas",
+        on: {
+          mousedown: function($event) {
+            return _vm.startDragging()
+          },
+          mousemove: function($event) {
+            return _vm.dragViewport($event)
+          },
+          mouseleave: function($event) {
+            return _vm.stopDragging()
+          },
+          mouseup: function($event) {
+            return _vm.stopDragging()
+          }
+        }
+      })
     ]
   )
 }

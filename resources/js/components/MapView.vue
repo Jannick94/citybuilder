@@ -1,13 +1,21 @@
 <template>
     <div class="map" style="overflow: auto; width: 100%; height: 100%;">
-        <span :key="fps">{{ fps }} fps</span>
+        <p :key="fps">{{ fps }} fps</p>
+        <p>x: {{ coordinates.x }}</p>
+        <p>y: {{ coordinates.y }}</p>
         <img src="/img/grass.png" ref="1" hidden>
         <img src="/img/dirt.png" ref="2" hidden>
         <img src="/img/water.png" ref="3" hidden>
         <img src="/img/bridgeNorth.png" ref="4" hidden>
         <img src="/img/roadNorth.png" ref="5" hidden>
 
-        <canvas ref="canvas"></canvas>
+        <canvas
+            ref="canvas"
+            @mousedown="startDragging()"
+            @mousemove="dragViewport($event)"
+            @mouseleave="stopDragging()"
+            @mouseup="stopDragging()"
+        ></canvas>
     </div>
 </template>
 
@@ -20,16 +28,23 @@
                 context: null,
 
                 tilemap: [
-                    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-                    [1, 3, 3, 3, 1, 1, 1, 3, 3, 3, 1, 1],
-                    [5, 4, 4, 4, 5, 5],
-                    [1, 3, 3, 3, 1, 1],
-                    [1, 1, 1, 1, 1, 1],
+                    [1, 1, 1, 1, 1],
+                    [1, 3, 3, 3, 1],
+                    [5, 4, 4, 4, 5],
+                    [1, 3, 3, 3, 1],
+                    [1, 1, 1, 1, 1],
                 ],
 
                 secondsPassed: null,
                 oldTimeStamp: null,
                 fps: null,
+
+                coordinates: {
+                    x: 0,
+                    y: 0,
+                },
+
+                isDragging: false,
             }
         },
         methods: {
@@ -56,6 +71,8 @@
                 const amountOfColumns = this.tilemap[0].length;
                 const amountOfRows = this.tilemap.length;
 
+                this.context.translate(this.coordinates.x, this.coordinates.y);
+
                 for (let x = 0; x < amountOfRows; x++) {
                     for (let y = 0; y < amountOfColumns; y++) {
                         this.drawImageTile(this.$refs[this.tilemap[x][y]], x, y);
@@ -81,6 +98,23 @@
                     spriteWidth,
                     spriteHeight,
                 );
+            },
+            startDragging() {
+                this.isDragging = true;
+            },
+            stopDragging() {
+                this.isDragging = false;
+            },
+            dragViewport(event) {
+                if (!this.isDragging) {
+                    return;
+                }
+
+                // @todo: calculate movementX/Y because it lacks support in IE
+                this.coordinates = {
+                    x: this.coordinates.x + event.movementX,
+                    y: this.coordinates.y + event.movementY,
+                };
             },
         },
         mounted() {
