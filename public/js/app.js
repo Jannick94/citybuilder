@@ -116,13 +116,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'map-view',
   data: function data() {
     return {
       canvas: null,
       context: null,
-      tilemap: [[1, 1, 1, 1, 1], [1, 3, 3, 3, 1], [5, 4, 4, 4, 5], [1, 3, 3, 3, 1], [1, 1, 1, 1, 1]],
+      tilemap: [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]],
       secondsPassed: null,
       oldTimeStamp: null,
       fps: null,
@@ -147,7 +151,6 @@ __webpack_require__.r(__webpack_exports__);
       window.requestAnimationFrame(this.gameLoop);
     },
     draw: function draw() {
-      var grass = this.$refs.grass;
       this.canvas.width = window.innerWidth;
       this.canvas.height = window.innerHeight;
       var amountOfColumns = this.tilemap[0].length;
@@ -689,11 +692,19 @@ var render = function() {
       staticStyle: { overflow: "auto", width: "100%", height: "100%" }
     },
     [
-      _c("p", { key: _vm.fps }, [_vm._v(_vm._s(_vm.fps) + " fps")]),
-      _vm._v(" "),
-      _c("p", [_vm._v("x: " + _vm._s(_vm.coordinates.x))]),
-      _vm._v(" "),
-      _c("p", [_vm._v("y: " + _vm._s(_vm.coordinates.y))]),
+      _c("div", { key: _vm.fps, staticClass: "debug-bar" }, [
+        _c("span", { staticClass: "debug-bar-info" }, [
+          _vm._v(
+            "\n            " +
+              _vm._s(_vm.fps) +
+              " fps —\n            x: " +
+              _vm._s(_vm.coordinates.x) +
+              " —\n            y: " +
+              _vm._s(_vm.coordinates.y) +
+              "\n        "
+          )
+        ])
+      ]),
       _vm._v(" "),
       _c("img", { ref: "1", attrs: { src: "/img/grass.png", hidden: "" } }),
       _vm._v(" "),
