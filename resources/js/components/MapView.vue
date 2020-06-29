@@ -6,6 +6,8 @@
                 x: {{ coordinates.x }} &mdash;
                 y: {{ coordinates.y }}
             </span>
+            <button type="button" @click="increaseScale()">&plus;</button>
+            <button type="button" @click="decreaseScale()">&minus;</button>
         </div>
         <img src="/img/grass.png" ref="1" hidden>
         <img src="/img/dirt.png" ref="2" hidden>
@@ -63,6 +65,8 @@
                     y: 0,
                 },
 
+                scale: 1,
+
                 isDragging: false,
             }
         },
@@ -90,6 +94,7 @@
                 const amountOfRows = this.tilemap.length;
 
                 this.context.translate(this.coordinates.x, this.coordinates.y);
+                this.context.scale(this.scale, this.scale);
 
                 for (let x = 0; x < amountOfRows; x++) {
                     for (let y = 0; y < amountOfColumns; y++) {
@@ -133,6 +138,20 @@
                     x: this.coordinates.x + event.movementX,
                     y: this.coordinates.y + event.movementY,
                 };
+            },
+            increaseScale() {
+                if (this.scale >= 1.4) {
+                    return;
+                }
+
+                this.scale += 0.1;
+            },
+            decreaseScale() {
+                if (this.scale <= 0.4) {
+                    return;
+                }
+
+                this.scale -= 0.1;
             },
         },
         mounted() {

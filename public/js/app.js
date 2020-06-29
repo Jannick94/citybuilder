@@ -120,6 +120,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'map-view',
   data: function data() {
@@ -134,6 +136,7 @@ __webpack_require__.r(__webpack_exports__);
         x: 0,
         y: 0
       },
+      scale: 1,
       isDragging: false
     };
   },
@@ -156,6 +159,7 @@ __webpack_require__.r(__webpack_exports__);
       var amountOfColumns = this.tilemap[0].length;
       var amountOfRows = this.tilemap.length;
       this.context.translate(this.coordinates.x, this.coordinates.y);
+      this.context.scale(this.scale, this.scale);
 
       for (var x = 0; x < amountOfRows; x++) {
         for (var y = 0; y < amountOfColumns; y++) {
@@ -192,6 +196,20 @@ __webpack_require__.r(__webpack_exports__);
         x: this.coordinates.x + event.movementX,
         y: this.coordinates.y + event.movementY
       };
+    },
+    increaseScale: function increaseScale() {
+      if (this.scale >= 1.4) {
+        return;
+      }
+
+      this.scale += 0.1;
+    },
+    decreaseScale: function decreaseScale() {
+      if (this.scale <= 0.4) {
+        return;
+      }
+
+      this.scale -= 0.1;
     }
   },
   mounted: function mounted() {
@@ -703,7 +721,33 @@ var render = function() {
               _vm._s(_vm.coordinates.y) +
               "\n        "
           )
-        ])
+        ]),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            attrs: { type: "button" },
+            on: {
+              click: function($event) {
+                return _vm.increaseScale()
+              }
+            }
+          },
+          [_vm._v("+")]
+        ),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            attrs: { type: "button" },
+            on: {
+              click: function($event) {
+                return _vm.decreaseScale()
+              }
+            }
+          },
+          [_vm._v("−")]
+        )
       ]),
       _vm._v(" "),
       _c("img", { ref: "1", attrs: { src: "/img/grass.png", hidden: "" } }),
