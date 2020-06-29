@@ -20,11 +20,10 @@
                 context: null,
 
                 tilemap: [
-                    [1, 1, 1, 1, 1, 1],
-                    [1, 3, 3, 3, 1, 1],
+                    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+                    [1, 3, 3, 3, 1, 1, 1, 3, 3, 3, 1, 1],
                     [5, 4, 4, 4, 5, 5],
                     [1, 3, 3, 3, 1, 1],
-                    [1, 1, 1, 1, 1, 1],
                     [1, 1, 1, 1, 1, 1],
                 ],
 
@@ -64,6 +63,10 @@
                 }
             },
             drawImageTile(tile, x, y) {
+                if (!tile) {
+                    tile = this.$refs[1];
+                }
+
                 const gridWidth = 100;
                 const gridHeight = 50;
                 const spriteWidth = gridWidth;

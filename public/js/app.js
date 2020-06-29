@@ -114,7 +114,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       canvas: null,
       context: null,
-      tilemap: [[1, 1, 1, 1, 1, 1], [1, 3, 3, 3, 1, 1], [5, 4, 4, 4, 5, 5], [1, 3, 3, 3, 1, 1], [1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1]],
+      tilemap: [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [1, 3, 3, 3, 1, 1, 1, 3, 3, 3, 1, 1], [5, 4, 4, 4, 5, 5], [1, 3, 3, 3, 1, 1], [1, 1, 1, 1, 1, 1]],
       secondsPassed: null,
       oldTimeStamp: null,
       fps: null
@@ -147,6 +147,10 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     drawImageTile: function drawImageTile(tile, x, y) {
+      if (!tile) {
+        tile = this.$refs[1];
+      }
+
       var gridWidth = 100;
       var gridHeight = 50;
       var spriteWidth = gridWidth;
