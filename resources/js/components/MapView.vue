@@ -8,6 +8,8 @@
             </span>
             <button type="button" @click="increaseScale()">&plus;</button>
             <button type="button" @click="decreaseScale()">&minus;</button>
+
+            <button type="button" @click="moveViewport()">Move to 100x100</button>
         </div>
         <img src="/img/grass.png" ref="1" hidden>
         <img src="/img/dirt.png" ref="2" hidden>

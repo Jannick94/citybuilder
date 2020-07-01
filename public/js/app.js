@@ -122,6 +122,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'map-view',
   data: function data() {
@@ -747,6 +749,19 @@ var render = function() {
             }
           },
           [_vm._v("−")]
+        ),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            attrs: { type: "button" },
+            on: {
+              click: function($event) {
+                return _vm.moveViewport()
+              }
+            }
+          },
+          [_vm._v("Move to 100x100")]
         )
       ]),
       _vm._v(" "),
