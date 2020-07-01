@@ -155,6 +155,20 @@
 
                 this.scale -= 0.1;
             },
+            moveViewport() {
+                const interval = setInterval(() => {
+                    if (this.coordinates.x >= 100 && this.coordinates.y >= 100) {
+                        clearInterval(interval);
+
+                        return;
+                    }
+
+                    this.coordinates = {
+                        x: this.coordinates.x + 10,
+                        y: this.coordinates.y + 10,
+                    };
+                }, 20);
+            },
         },
         mounted() {
             this.init();

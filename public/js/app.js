@@ -212,6 +212,21 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       this.scale -= 0.1;
+    },
+    moveViewport: function moveViewport() {
+      var _this = this;
+
+      var interval = setInterval(function () {
+        if (_this.coordinates.x >= 100 && _this.coordinates.y >= 100) {
+          clearInterval(interval);
+          return;
+        }
+
+        _this.coordinates = {
+          x: _this.coordinates.x + 10,
+          y: _this.coordinates.y + 10
+        };
+      }, 20);
     }
   },
   mounted: function mounted() {
