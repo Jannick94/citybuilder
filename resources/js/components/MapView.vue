@@ -16,11 +16,13 @@
         <img src="/img/water.png" ref="3" hidden>
         <img src="/img/bridgeNorth.png" ref="4" hidden>
         <img src="/img/roadNorth.png" ref="5" hidden>
+        <img src="/img/building.png" ref="6" hidden>
+        <img src="/img/building2.png" ref="7" hidden>
 
         <canvas
             ref="canvas"
             @mousedown="startDragging()"
-            @mousemove="dragViewport($event)"
+            @mousemove="dragViewport($event); hoverTile($event)"
             @mouseleave="stopDragging()"
             @mouseup="stopDragging()"
         ></canvas>
@@ -36,26 +38,18 @@
                 context: null,
 
                 tilemap: [
-                    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-                    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-                    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-                    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-                    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-                    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-                    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-                    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-                    [1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-                    [1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-                    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-                    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-                    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-                    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-                    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-                    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-                    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-                    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-                    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-                    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+                    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+                    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+                    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+                    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+                    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+                    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+                    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+                    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+                    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+                    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+                    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+                    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
                 ],
 
                 secondsPassed: null,
@@ -67,9 +61,16 @@
                     y: 0,
                 },
 
+                hoverCoordinates: {
+                    x: 0,
+                    y: 0,
+                },
+
                 scale: 1,
 
                 isDragging: false,
+
+                test: 0,
             }
         },
         methods: {
@@ -116,13 +117,30 @@
                 const ox = this.canvas.width / 2 - spriteWidth / 2;
                 const oy = spriteHeight;
 
-                this.context.drawImage(
-                    tile,
-                    ox + (y - x) * spriteWidth / 2,
-                    oy + (x + y) * gridHeight / 2 - (spriteHeight - gridHeight),
-                    spriteWidth,
-                    spriteHeight,
-                );
+                const spriteX = ox + (y - x) * spriteWidth / 2;
+                const spriteY = oy + (x + y) * gridHeight / 2 - (spriteHeight - gridHeight);
+
+                this.context.drawImage(tile, spriteX, spriteY, spriteWidth, spriteHeight);
+
+                // if (x === 0 && y === 0) {
+                    // this.context.strokeRect(spriteX + spriteWidth / 2, spriteY, 1, 1);
+                    // this.context.strokeRect(spriteX, spriteY + spriteHeight / 2, 1, 1);
+                    // this.context.strokeRect(spriteX + spriteWidth, spriteY + spriteHeight / 2, 1, 1);
+                    // this.context.strokeRect(spriteX + spriteWidth / 2, spriteY + spriteHeight, 1, 1);
+                    const path = new Path2D();
+
+                    path.lineTo(spriteX + spriteWidth / 2, spriteY);
+                    path.lineTo(spriteX, spriteY + spriteHeight / 2 - 7.5);
+                    path.lineTo(spriteX + spriteWidth / 2, spriteY + spriteHeight - 15);
+                    path.lineTo(spriteX + spriteWidth, spriteY + spriteHeight / 2 - 7.5);
+                    path.lineTo(spriteX + spriteWidth / 2, spriteY);
+                    // this.context.strokeStyle = 'rgba(0,0,0,0)';
+                    // this.context.stroke(path);
+
+                    if (this.context.isPointInPath(path, this.hoverCoordinates.x, this.hoverCoordinates.y)) {
+                        this.context.fillStyle = 'rgba(0,0,0,0.3)';
+                        this.context.fill(path);
+                    }
             },
             startDragging() {
                 this.isDragging = true;
@@ -168,6 +186,12 @@
                         y: this.coordinates.y + 10,
                     };
                 }, 20);
+            },
+            hoverTile(event) {
+                const rect = this.canvas.getBoundingClientRect();
+
+                this.hoverCoordinates.x = event.clientX - rect.left - this.coordinates.x;
+                this.hoverCoordinates.y = event.clientY - rect.top - this.coordinates.y;
             },
         },
         mounted() {
