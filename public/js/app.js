@@ -197,12 +197,13 @@ __webpack_require__.r(__webpack_exports__);
       path.lineTo(spriteX + spriteWidth / 2, spriteY + spriteHeight - 15);
       path.lineTo(spriteX + spriteWidth, spriteY + spriteHeight / 2 - 7.5);
       path.lineTo(spriteX + spriteWidth / 2, spriteY);
-      this.context.closePath();
 
-      if (this.context.isPointInPath(path, this.hoverCoordinates.x, this.hoverCoordinates.y)) {
+      if (this.context.isPointInPath(this.hoverCoordinates.x, this.hoverCoordinates.y)) {
         this.context.fillStyle = 'rgba(0,0,0,0.1)';
         this.context.fill(path);
       }
+
+      this.context.closePath();
     },
     startDragging: function startDragging() {
       this.isDragging = true;
