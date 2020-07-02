@@ -132,7 +132,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       canvas: null,
       context: null,
-      tilemap: [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]],
+      tilemap: [[1, 1, 1, 1, 1], [1, 1, 1, 1, 1], [1, 1, 1, 1, 1], [1, 1, 1, 1, 1], [1, 1, 1, 1, 1]],
       secondsPassed: null,
       oldTimeStamp: null,
       fps: null,
@@ -191,14 +191,16 @@ __webpack_require__.r(__webpack_exports__);
       var spriteY = oy + (x + y) * gridHeight / 2 - (spriteHeight - gridHeight);
       this.context.drawImage(tile, spriteX, spriteY, spriteWidth, spriteHeight);
       var path = new Path2D();
+      this.context.beginPath();
       path.lineTo(spriteX + spriteWidth / 2, spriteY);
       path.lineTo(spriteX, spriteY + spriteHeight / 2 - 7.5);
       path.lineTo(spriteX + spriteWidth / 2, spriteY + spriteHeight - 15);
       path.lineTo(spriteX + spriteWidth, spriteY + spriteHeight / 2 - 7.5);
       path.lineTo(spriteX + spriteWidth / 2, spriteY);
+      this.context.closePath();
 
       if (this.context.isPointInPath(path, this.hoverCoordinates.x, this.hoverCoordinates.y)) {
-        this.context.fillStyle = 'rgba(0,0,0,0.3)';
+        this.context.fillStyle = 'rgba(0,0,0,0.1)';
         this.context.fill(path);
       }
     },
@@ -250,8 +252,8 @@ __webpack_require__.r(__webpack_exports__);
     },
     hoverTile: function hoverTile(event) {
       var rect = this.canvas.getBoundingClientRect();
-      this.hoverCoordinates.x = event.clientX - rect.left - this.coordinates.x;
-      this.hoverCoordinates.y = event.clientY - rect.top - this.coordinates.y;
+      this.hoverCoordinates.x = event.clientX - rect.left;
+      this.hoverCoordinates.y = event.clientY - rect.top;
     }
   },
   mounted: function mounted() {
