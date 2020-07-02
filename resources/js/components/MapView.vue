@@ -122,25 +122,18 @@
 
                 this.context.drawImage(tile, spriteX, spriteY, spriteWidth, spriteHeight);
 
-                // if (x === 0 && y === 0) {
-                    // this.context.strokeRect(spriteX + spriteWidth / 2, spriteY, 1, 1);
-                    // this.context.strokeRect(spriteX, spriteY + spriteHeight / 2, 1, 1);
-                    // this.context.strokeRect(spriteX + spriteWidth, spriteY + spriteHeight / 2, 1, 1);
-                    // this.context.strokeRect(spriteX + spriteWidth / 2, spriteY + spriteHeight, 1, 1);
-                    const path = new Path2D();
+                const path = new Path2D();
 
-                    path.lineTo(spriteX + spriteWidth / 2, spriteY);
-                    path.lineTo(spriteX, spriteY + spriteHeight / 2 - 7.5);
-                    path.lineTo(spriteX + spriteWidth / 2, spriteY + spriteHeight - 15);
-                    path.lineTo(spriteX + spriteWidth, spriteY + spriteHeight / 2 - 7.5);
-                    path.lineTo(spriteX + spriteWidth / 2, spriteY);
-                    // this.context.strokeStyle = 'rgba(0,0,0,0)';
-                    // this.context.stroke(path);
+                path.lineTo(spriteX + spriteWidth / 2, spriteY);
+                path.lineTo(spriteX, spriteY + spriteHeight / 2 - 7.5);
+                path.lineTo(spriteX + spriteWidth / 2, spriteY + spriteHeight - 15);
+                path.lineTo(spriteX + spriteWidth, spriteY + spriteHeight / 2 - 7.5);
+                path.lineTo(spriteX + spriteWidth / 2, spriteY);
 
-                    if (this.context.isPointInPath(path, this.hoverCoordinates.x, this.hoverCoordinates.y)) {
-                        this.context.fillStyle = 'rgba(0,0,0,0.3)';
-                        this.context.fill(path);
-                    }
+                if (this.context.isPointInPath(path, this.hoverCoordinates.x, this.hoverCoordinates.y)) {
+                    this.context.fillStyle = 'rgba(0,0,0,0.3)';
+                    this.context.fill(path);
+                }
             },
             startDragging() {
                 this.isDragging = true;
