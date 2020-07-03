@@ -115,18 +115,16 @@
 
                 this.context.drawImage(tile, spriteX, spriteY, spriteWidth, spriteHeight);
 
-                const path = new Path2D();
-
                 this.context.beginPath();
-                path.lineTo(spriteX + spriteWidth / 2, spriteY);
-                path.lineTo(spriteX, spriteY + spriteHeight / 2 - 7.5);
-                path.lineTo(spriteX + spriteWidth / 2, spriteY + spriteHeight - 15);
-                path.lineTo(spriteX + spriteWidth, spriteY + spriteHeight / 2 - 7.5);
-                path.lineTo(spriteX + spriteWidth / 2, spriteY);
+                this.context.lineTo(spriteX + spriteWidth / 2, spriteY);
+                this.context.lineTo(spriteX, spriteY + spriteHeight / 2 - 7.5);
+                this.context.lineTo(spriteX + spriteWidth / 2, spriteY + spriteHeight - 15);
+                this.context.lineTo(spriteX + spriteWidth, spriteY + spriteHeight / 2 - 7.5);
+                this.context.lineTo(spriteX + spriteWidth / 2, spriteY);
 
                 if (this.context.isPointInPath(this.hoverCoordinates.x, this.hoverCoordinates.y)) {
                     this.context.fillStyle = 'rgba(0,0,0,0.1)';
-                    this.context.fill(path);
+                    this.context.fill();
                 }
 
                 this.context.closePath();

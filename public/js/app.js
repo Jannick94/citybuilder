@@ -190,17 +190,16 @@ __webpack_require__.r(__webpack_exports__);
       var spriteX = ox + (y - x) * spriteWidth / 2;
       var spriteY = oy + (x + y) * gridHeight / 2 - (spriteHeight - gridHeight);
       this.context.drawImage(tile, spriteX, spriteY, spriteWidth, spriteHeight);
-      var path = new Path2D();
       this.context.beginPath();
-      path.lineTo(spriteX + spriteWidth / 2, spriteY);
-      path.lineTo(spriteX, spriteY + spriteHeight / 2 - 7.5);
-      path.lineTo(spriteX + spriteWidth / 2, spriteY + spriteHeight - 15);
-      path.lineTo(spriteX + spriteWidth, spriteY + spriteHeight / 2 - 7.5);
-      path.lineTo(spriteX + spriteWidth / 2, spriteY);
+      this.context.lineTo(spriteX + spriteWidth / 2, spriteY);
+      this.context.lineTo(spriteX, spriteY + spriteHeight / 2 - 7.5);
+      this.context.lineTo(spriteX + spriteWidth / 2, spriteY + spriteHeight - 15);
+      this.context.lineTo(spriteX + spriteWidth, spriteY + spriteHeight / 2 - 7.5);
+      this.context.lineTo(spriteX + spriteWidth / 2, spriteY);
 
       if (this.context.isPointInPath(this.hoverCoordinates.x, this.hoverCoordinates.y)) {
         this.context.fillStyle = 'rgba(0,0,0,0.1)';
-        this.context.fill(path);
+        this.context.fill();
       }
 
       this.context.closePath();
@@ -13092,8 +13091,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/Jannick/Workspace/citybuilder/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/Jannick/Workspace/citybuilder/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/jannick/Workspace/citybuilder/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/jannick/Workspace/citybuilder/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
