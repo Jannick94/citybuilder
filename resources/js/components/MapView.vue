@@ -37,13 +37,15 @@
                 canvas: null,
                 context: null,
 
-                tilemap: [
-                    [1, 1, 1, 1, 1],
-                    [1, 1, 1, 1, 1],
-                    [1, 1, 1, 1, 1],
-                    [1, 1, 1, 1, 1],
-                    [1, 1, 1, 1, 1],
-                ],
+                map: {
+                    width: 10,
+                    height: 10,
+                    preset: {
+                        '6,3': 2,
+                        '3,2': 5,
+                        '3,3': 5,
+                    },
+                },
 
                 secondsPassed: null,
                 oldTimeStamp: null,
@@ -62,8 +64,6 @@
                 scale: 1,
 
                 isDragging: false,
-
-                test: 0,
             }
         },
         methods: {
@@ -86,15 +86,18 @@
                 this.canvas.width = window.innerWidth;
                 this.canvas.height = window.innerHeight;
 
-                const amountOfColumns = this.tilemap[0].length;
-                const amountOfRows = this.tilemap.length;
-
                 this.context.translate(this.coordinates.x, this.coordinates.y);
                 this.context.scale(this.scale, this.scale);
 
-                for (let x = 0; x < amountOfRows; x++) {
-                    for (let y = 0; y < amountOfColumns; y++) {
-                        this.drawImageTile(this.$refs[this.tilemap[x][y]], x, y);
+                for (let y = 0; y < this.map.height; y++) {
+                    for (let x = 0; x < this.map.width; x++) {
+                        if (this.map.preset[`${x},${y}`]) {
+                            this.drawImageTile(this.$refs[this.map.preset[`${x},${y}`]], x, y);
+
+                            continue;
+                        }
+
+                        this.drawImageTile(this.$refs[1], x, y);
                     }
                 }
             },
