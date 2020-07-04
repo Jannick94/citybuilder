@@ -16,6 +16,8 @@ body {
     background: #1f1f1f;
     color: #fff;
     display: flex;
+    flex-direction: column;
+    align-items: center;
     position: fixed;
     top: 10px;
     left: 10px;
@@ -23,5 +25,9 @@ body {
 
     .debug-bar-info {
         margin: 0 10px;
+    }
+
+    hr {
+        width: 100%;
     }
 }

@@ -6,10 +6,19 @@
                 x: {{ coordinates.x }} &mdash;
                 y: {{ coordinates.y }}
             </span>
-            <button type="button" @click="increaseScale()">&plus;</button>
-            <button type="button" @click="decreaseScale()">&minus;</button>
-
-            <button type="button" @click="moveViewport()">Move to 100x100</button>
+            <hr>
+            <span class="debug-bar-info">
+                <button type="button" @click="increaseScale()">&plus;</button>
+                <button type="button" @click="decreaseScale()">&minus;</button>
+                <button type="button" @click="moveViewport()">Move to 100x100</button>
+            </span>
+            <hr>
+            <span class="debug-bar-info">
+                <label>
+                    <input type="checkbox" v-model="showCoordinates">
+                    Show coordinates
+                </label>
+            </span>
         </div>
         <img src="/img/grass.png" ref="1" hidden>
         <img src="/img/dirt.png" ref="2" hidden>
@@ -64,6 +73,8 @@
                 scale: 1,
 
                 isDragging: false,
+
+                showCoordinates: false,
             }
         },
         methods: {
@@ -131,6 +142,13 @@
                 }
 
                 this.context.closePath();
+
+                if (this.showCoordinates) {
+                    this.context.font = '12px Arial';
+                    this.context.fillStyle = '#000000';
+                    this.context.textAlign = 'center';
+                    this.context.fillText(`${x}, ${y}`, spriteX + spriteWidth / 2, spriteY + spriteHeight / 2);
+                }
             },
             startDragging() {
                 this.isDragging = true;
